@@ -11,37 +11,37 @@ from the_pile.datasets import *
 
 datasets = [
     # Academic
-    (PubMedCentralDataset(), 2.  ),
-    (ArXivDataset()        , 2.  ),
-    (FreeLawDataset()      , 1.5 ),
-    (USPTODataset()        , 2.  ),
-    (PubMedDataset()       , 2.  ),
-    (PhilPapersDataset()   , 2.  ),
-    (ExPorterDataset()     , 2.  ),
-
-    # General internet
-    (OpenWebText2Dataset() , 2.  ),
-    (StackExchangeDataset(), 2.  ),
-    (WikipediaDataset()    , 3.  ),
-
-    # Prose
-    (BibliotikDataset()    , 1.5 ),
-    (GutenbergDataset()    , 2.5 ),
-    (BookCorpusDataset()   , 1.5 ),
-
-    # Github
+    #(PubMedCentralDataset(), 2.  ),
+    #(ArXivDataset()        , 2.  ),
+    #(FreeLawDataset()      , 1.5 ),
+    #(USPTODataset()        , 2.  ),
+    #(PubMedDataset()       , 2.  ),
+    #(PhilPapersDataset()   , 2.  ),
+    #(ExPorterDataset()     , 2.  ),
+#
+    ## General internet
+    #(OpenWebText2Dataset() , 2.  ),
+    #(StackExchangeDataset(), 2.  ),
+    #(WikipediaDataset()    , 3.  ),
+#
+    ## Prose
+    #(BibliotikDataset()    , 1.5 ),
+    #(GutenbergDataset()    , 2.5 ),
+    #(BookCorpusDataset()   , 1.5 ),
+#
+    ## Github
     (GithubDataset()       , 1.  ),
-
-    # Dialogue
-    (UbuntuIRCDataset()    , 2.  ),
-    (HackerNewsDataset()   , 2.  ),
-    (EuroParlDataset()     , 2.  ),
-    (YTSubtitlesDataset()  , 2.  ),
-    (OpensubtitlesDataset(), 1.5 ),
-
-    # Misc
-    (DMMathDataset()       , 2.  ),
-    (EnronEmailsDataset()  , 2.  ),
+#
+    ## Dialogue
+    #(UbuntuIRCDataset()    , 2.  ),
+    #(HackerNewsDataset()   , 2.  ),
+    #(EuroParlDataset()     , 2.  ),
+    #(YTSubtitlesDataset()  , 2.  ),
+    #(OpensubtitlesDataset(), 1.5 ),
+#
+    ## Misc
+    #(DMMathDataset()       , 2.  ),
+    #(EnronEmailsDataset()  , 2.  ),
 
 ]
 
@@ -256,7 +256,7 @@ def make_fasttext(pile, keep_frac):
 def lang_stats(pile):
     download_file('https://dl.fbaipublicfiles.com/fasttext/supervised-models/lid.176.bin', 'lid.176.bin', '7e69ec5451bc261cc7844e49e4792a85d7f09c06789ec800fc4a44aec362764e')
     
-    langdet = fasttext.load_model("lid.176.bin") 
+    langdet = fasttext.load_model("lid.176.bin")
     langs = collections.defaultdict(lambda: collections.defaultdict(int))
     for i, (data, meta) in enumerate(pile.documents()):
         details = langdet.predict(data.replace('\n', ' ')[:3000], k=1)
@@ -331,9 +331,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
     random.seed(42)
 
-    if args.using != 'pile_reprod_no_cc':
+    #if args.using != 'pile_reprod_no_cc':
         # add CC
-        datasets.append((CommonCrawlDataset(), 1.))
+        #datasets.append((CommonCrawlDataset(), 1.))
 
     if args.read_amount is None:
         args.read_amount = sum([ds.size() * epochs for ds, epochs in datasets])
@@ -350,6 +350,8 @@ if __name__ == '__main__':
         pile = ThePile()
     elif args.using == 'owt2':
         pile = OpenWebText2Dataset()
+    elif args.using == 'Github2':
+        pile = GithubDataset()
     elif args.using == 'bibliotik':
         pile = BibliotikDataset()
     else:
