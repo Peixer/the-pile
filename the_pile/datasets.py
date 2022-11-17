@@ -706,11 +706,11 @@ class FullGithubDataset(Dataset):
 
 class GithubDataset(Dataset):
     def name(self):
-        return "Github"
+        return "Github2"
 
     def _download(self):
         download('components/github/github_small.jsonl.zst', '4323250bed817466de868f752b7685350123cff1f1363e87dfb6f22585b97f96', [
-            Source('direct', 'http://eaidata.bmk.sh/data/github_small.jsonl.zst'),
+            Source('direct', 'https://github.com/Peixer/github-downloader/raw/master/github_data/data_0_time1668652133_default.jsonl.zst'),
         ])
 
     def documents(self):
